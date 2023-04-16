@@ -90,14 +90,31 @@ function App() {
     setNotes(notesCopy)
   }
 
+  function removeAll(){
+    localStorage.removeItem('notes')
+    const notesCopy = structuredClone(notes!);
+    notesCopy.splice(0, notesCopy.length)
+    setNotesToWrap(notesCopy)
+  }
+
   return (
-    <div className='p-3'>
-      <div className='flex justify-end mb-2'>
-        <FontAwesomeIcon icon={icon({name:"plus", style:"solid"})} className="text-white bg-gray-700 h-8 w-8 border-solid border-2 border-gray-900 rounded-md" onClick={addNotes}/>
+    <div className='relative flex flex-col'>
+      <div className='p-3'>
+        <div className='flex justify-end mb-2 gap-2 h-fit'>
+          <div className="text-white bg-gray-700 h-8 border-solid border-2 border-gray-900 rounded-md text-xl text-center pl-2 pr-2" onClick={removeAll}>Remove all</div>
+          <div className="text-white bg-gray-700 h-8 w-8 border-solid border-2 border-gray-900 rounded-md justify-center items-center flex">
+            <FontAwesomeIcon icon={icon({name:"plus", style:"solid"})} className="text-white h-8 w-8 flex" onClick={addNotes}/>
+          </div>
+        </div>
+          <div className='flex justify-start flex-wrap items-start gap-4'>
+            {notes?.map(notebook => <NotesContainer notebook={notebook} removeNotes={removeNotes} key={notebook.id} addNote={addNote} removeNote={removeNote} onTitlesChanged={onTitleChanged} onNoteChange={onNoteChanged}/> )}
+          </div>
       </div>
-      <div className='flex justify-start flex-wrap items-start gap-4'>
-        {notes?.map(notebook => <NotesContainer notebook={notebook} removeNotes={removeNotes} key={notebook.id} addNote={addNote} removeNote={removeNote} onTitlesChanged={onTitleChanged} onNoteChange={onNoteChanged}/> )}
-      </div>
+      <footer className='fixed w-full bottom-0 bg-gradient-to-t from-gray-500 from-50% to-transparent'>
+        <div className='justify-center w-full flex h-[2.25rem] items-center pt-2 mt-1'>
+          <p className='text-white text-md text-center'>Made with ❤️ by Zofi</p>
+        </div>
+      </footer>
     </div>
   );
 }
