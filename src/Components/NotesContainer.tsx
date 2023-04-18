@@ -1,6 +1,6 @@
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Note, Notebook } from "../Types";
+import { Notebook } from "../Types";
 import Editable from './Editable';
 import NoteContainer from "./NoteContainer";
 
